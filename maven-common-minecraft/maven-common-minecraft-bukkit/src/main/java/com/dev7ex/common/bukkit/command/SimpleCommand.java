@@ -37,7 +37,7 @@ public abstract class SimpleCommand implements CommandExecutor {
     }
 
     public final boolean hasSubCommands() {
-        return this.commandMap.isEmpty();
+        return (!this.commandMap.isEmpty());
     }
 
     protected final boolean testPermission(final CommandSender commandSender) {
