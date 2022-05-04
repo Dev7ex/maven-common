@@ -14,7 +14,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 public abstract class PluginConfiguration {
 
     protected final FileConfiguration fileConfiguration;
-    protected final ParsedMap<String, Object> values = new ParsedMap<>();
+    protected ParsedMap<String, Object> values = new ParsedMap<>(100);
 
     public PluginConfiguration(final BukkitPlugin bukkitPlugin) {
         this.fileConfiguration = bukkitPlugin.getConfig();
@@ -22,6 +22,21 @@ public abstract class PluginConfiguration {
         bukkitPlugin.setDefaultConfigUsed(true);
     }
 
+    public <V> V getValueSafe(final String key) {
+        if (!this.values.containsKey(key)) {
+            return (V) this.values.put(key, this.fileConfiguration.get(key));
+        }
+        return (V) this.values.get(key);
+    }
+
+    public String getStringSafe(final String key) {
+        if (!this.values.containsKey(key)) {
+            return String.valueOf(this.values.put(key, this.fileConfiguration.getString(key)));
+        }
+        return this.values.getString(key);
+    }
+
+    @Deprecated
     public final String getMessageSafe(final String key) {
         if(this.values.containsKey(key)) {
             return this.values.getString(key);
