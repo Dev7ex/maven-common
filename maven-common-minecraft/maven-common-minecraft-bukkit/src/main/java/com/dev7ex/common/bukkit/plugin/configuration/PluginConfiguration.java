@@ -2,15 +2,13 @@ package com.dev7ex.common.bukkit.plugin.configuration;
 
 import com.dev7ex.common.bukkit.plugin.BukkitPlugin;
 import com.dev7ex.common.java.map.ParsedMap;
+
 import org.bukkit.configuration.file.FileConfiguration;
 
 /**
- *
  * @author Dev7ex
  * @since 19.05.2021
- *
  */
-
 public abstract class PluginConfiguration {
 
     protected final FileConfiguration fileConfiguration;
@@ -27,6 +25,13 @@ public abstract class PluginConfiguration {
             return (V) this.values.put(key, this.fileConfiguration.get(key));
         }
         return (V) this.values.get(key);
+    }
+
+    public boolean getBooleanSafe(final String key) {
+        if (!this.values.containsKey(key)) {
+            return Boolean.parseBoolean(String.valueOf(this.values.put(key, this.fileConfiguration.getBoolean(key))));
+        }
+        return this.values.getBoolean(key);
     }
 
     public String getStringSafe(final String key) {
