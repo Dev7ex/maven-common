@@ -8,12 +8,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.Arrays;
 
 /**
- *
  * @author Dev7ex
  * @since 04.08.2019
- *
  */
-
 public final class ItemStackBuilder {
 
     private final ItemStack itemStack;

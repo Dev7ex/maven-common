@@ -1,18 +1,16 @@
 package com.dev7ex.common.bukkit.location;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 
 import org.bukkit.Location;
 import org.bukkit.World;
 
 /**
- *
  * @author Dev7ex
  * @since 14.05.2021
- *
  */
-
-@Getter
+@Getter(AccessLevel.PUBLIC)
 public final class LocationBuilder {
 
     private final World world;

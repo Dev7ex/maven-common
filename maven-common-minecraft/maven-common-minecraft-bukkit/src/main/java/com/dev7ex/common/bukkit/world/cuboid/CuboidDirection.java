@@ -1,13 +1,9 @@
 package com.dev7ex.common.bukkit.world.cuboid;
 
 /**
- *
  * @author desht
- * @date 27.08.2013
- *
+ * @since 27.08.2013
  */
-
-
 public enum CuboidDirection {
 
     North,

@@ -10,19 +10,17 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- *
  * @author Dev7ex
  * @since 18.10.2020
- *
  */
 
-public final class LocationConfiguration extends SimpleConfiguration {
+public class LocationConfiguration extends SimpleConfiguration {
 
     public LocationConfiguration(final Plugin plugin, final String fileName) {
         super(plugin, fileName);
     }
 
-    public final void setLocation(final String name, final Location location) {
+    public void setLocation(final String name, final Location location) {
         super.yamlConfiguration.set(name + ".world", location.getWorld().getName());
         super.yamlConfiguration.set(name + ".x", location.getX());
         super.yamlConfiguration.set(name + ".y", location.getY());
@@ -32,7 +30,7 @@ public final class LocationConfiguration extends SimpleConfiguration {
         super.saveFile();
     }
 
-    public final Location getLocation(final String name) {
+    public Location getLocation(final String name) {
         final String world = super.yamlConfiguration.getString("locations." + name + ".world");
         final double x = super.yamlConfiguration.getDouble("locations." + name + ".x");
         final double y = super.yamlConfiguration.getDouble("locations." + name + ".y");
@@ -42,16 +40,16 @@ public final class LocationConfiguration extends SimpleConfiguration {
         return new LocationBuilder(Bukkit.getWorld(name)).setX(x).setY(y).setZ(z).setPitch(pitch).setYaw(yaw).build();
     }
 
-    public final boolean locationExists(final String name) {
+    public boolean locationExists(final String name) {
         return super.yamlConfiguration.contains(name);
     }
 
-    public final void deleteLocation(final String name) {
+    public void deleteLocation(final String name) {
         super.yamlConfiguration.set(name, null);
         super.saveFile();
     }
 
-    public final Set<Location> getLocations() {
+    public Set<Location> getLocations() {
         final Set<Location> locations = new HashSet<>();
 
         for(final String location : super.yamlConfiguration.getKeys(false)) {

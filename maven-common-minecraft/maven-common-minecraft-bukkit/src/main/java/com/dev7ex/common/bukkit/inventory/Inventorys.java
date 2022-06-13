@@ -5,12 +5,9 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 /**
- *
  * @author Dev7ex
  * @since 19.05.2021
- *
  */
-
 public final class Inventorys {
 
     private Inventorys() {}

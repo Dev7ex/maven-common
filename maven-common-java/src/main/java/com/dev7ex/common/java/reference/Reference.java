@@ -1,13 +1,10 @@
 package com.dev7ex.common.java.reference;
 
 /**
- *
  * @author Dev7ex
  * @since 02.11.2020
- *
  */
-
-public final class Reference<V> {
+public class Reference<V> {
 
     private V value;
 
@@ -17,11 +14,11 @@ public final class Reference<V> {
         this.value = value;
     }
 
-    public final void setValue(V value) {
+    public void setValue(final V value) {
         this.value = value;
     }
 
-    public final V getValue() {
+    public V getValue() {
         return this.value;
     }
 

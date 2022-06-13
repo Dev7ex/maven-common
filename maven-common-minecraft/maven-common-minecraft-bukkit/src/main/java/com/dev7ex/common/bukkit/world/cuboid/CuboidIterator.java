@@ -6,13 +6,9 @@ import org.bukkit.block.Block;
 import java.util.Iterator;
 
 /**
- *
  * @author desht
- * @date 27.08.2013
- *
+ * @since  27.08.2013
  */
-
-
 public final class CuboidIterator implements Iterator<Block> {
 
     private final World world;

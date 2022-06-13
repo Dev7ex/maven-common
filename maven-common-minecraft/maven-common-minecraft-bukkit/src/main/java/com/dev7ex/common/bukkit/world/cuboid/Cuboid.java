@@ -10,13 +10,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
  * @author desht
- * @date 27.08.2013
- *
+ * @since 27.08.2013
  */
-
-public final class Cuboid implements Cloneable, Iterable<Block> {
+public class Cuboid implements Cloneable, Iterable<Block> {
 
     private Location firstLocation, secondLocation;
     private final String worldName;
