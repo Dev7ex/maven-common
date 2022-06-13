@@ -2,8 +2,7 @@ package com.dev7ex.common.bukkit.plugin;
 
 import com.dev7ex.common.bukkit.plugin.configuration.PluginConfiguration;
 import com.dev7ex.common.bukkit.plugin.service.PluginService;
-
-import com.google.common.collect.Maps;
+import com.dev7ex.common.bukkit.plugin.service.ServiceManager;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,18 +11,15 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.Map;
+import java.util.function.Predicate;
 
 /**
- *
  * @author Dev7ex
  * @since 19.05.2021
- *
  */
-
 public abstract class BukkitPlugin extends JavaPlugin {
 
-    private final Map<String, PluginService> pluginServices = Maps.newHashMap();
+    private final ServiceManager serviceManager = new ServiceManager(this);
 
     @Getter @Setter
     private boolean defaultConfigUsed = false;
@@ -50,16 +46,12 @@ public abstract class BukkitPlugin extends JavaPlugin {
         this.registerListeners();
         this.registerServices();
 
-        if(!this.pluginServices.isEmpty()) {
-            this.pluginServices.values().forEach(PluginService::onEnable);
-        }
+        this.serviceManager.onEnable();
     }
 
     @Override
     public void onDisable() {
-        if(!this.pluginServices.isEmpty()) {
-            this.pluginServices.values().forEach(PluginService::onDisable);
-        }
+        this.serviceManager.onDisable();
     }
 
     protected final Listener registerListener(final Listener listener) {
@@ -67,12 +59,29 @@ public abstract class BukkitPlugin extends JavaPlugin {
         return listener;
     }
 
+    protected final Listener registerListenerIf(final Listener listener, final Predicate<Boolean> predicate) {
+        if (predicate.test(true)) {
+            return this.registerListener(listener);
+        }
+        return listener;
+    }
+
     protected final PluginCommand registerCommand(final String pluginCommand) {
         return super.getCommand(pluginCommand);
     }
 
-    protected final PluginService registerService(final PluginService pluginService) {
-        return this.pluginServices.put(pluginService.getName(), pluginService);
+    protected final void registerService(final PluginService pluginService) {
+        this.serviceManager.registerService(pluginService);
+    }
+
+    protected final void registerServiceIf(final PluginService pluginService, final Predicate<Boolean> predicate) {
+        if (predicate.test(true)) {
+            this.serviceManager.registerService(pluginService);
+        }
+    }
+
+    public ServiceManager getServiceManager() {
+        return serviceManager;
     }
 
     public abstract PluginConfiguration getConfiguration();
